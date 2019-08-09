@@ -1,25 +1,23 @@
 //index.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
+var utils = require('./../../utils/util.js');
 
 Page({
   data: {
-     author: '',
-     title: '',
-     date: '',
-     content:''
+     html:'',
+     date: ''
   },
   onLoad: function () {
     var that = this;
     wx.request({
       url: 'https://interface.meiriyiwen.com/article/today?dev=1',
       success:function(res){
-        var data = res.data.data
+         var data = res.data.data;
+         var html = utils.getFormatArticle(data.content,data.title,data.author);
          that.setData({
-           author: data.author,
-           title: data.title,
-           date: data.date.curr,
-           content: data.content
+            html: html,
+            date: data.date.curr
          });
       }
     })

@@ -14,6 +14,13 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const getFormatArticle = (content, title, author)=> {
+  return `<h2 style="text-align:center">${title}</h2>
+        <div>${author}</div>
+        ${content}`;
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  getFormatArticle: getFormatArticle
 }
