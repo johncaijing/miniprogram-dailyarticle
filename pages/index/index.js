@@ -50,19 +50,16 @@ Page({
 
   },
   getRandom: function(event){
-     console.log('getRandom');
      app.globalData.selectDate ='';
      app.globalData.random = true;
      this.onLoad();     
   },
   getPrev: function(event) {
-    console.log('prev');
     app.globalData.random = false;
     app.globalData.selectDate = utils.getPrevDate(this.data.date);
     this.onLoad();
   },
   getNext: function(event) {
-    console.log('next');
     app.globalData.random = false;
     var next = utils.getNextDate(this.data.date);
     

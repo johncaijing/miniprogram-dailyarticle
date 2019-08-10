@@ -1,9 +1,9 @@
 <!--index.wxml-->
 <view class="container">
 <view class="header">
-  <button class="prev" plain="true" bindtap="getPrev">上一日</button>
-  <button class="random" bindtap="getRandom">随机一篇</button>
-  <button class="next" bindtap="getNext">下一日</button>
+  <button class="prev" bindtap="getPrev">上一天</button>
+  <button class="random" bindtap="getRandom">随机</button> 
+  <button class="next" bindtap="getNext">下一天</button>
 </view>
 <text>{{date}}</text>
 <rich-text class="article" nodes="{{html}}">
