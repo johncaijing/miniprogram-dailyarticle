@@ -25,7 +25,13 @@ Page({
       if(storage.hasKey(selectDate)) {
         const data = storage.read(selectDate);
         if(data) {
-          var html = parseData(JSON.parse(data));
+          var d = JSON.parse(data);
+          var html;
+          if(d.is404) {
+            html = utils.get404Text(selectDate);
+          } else {
+            html = parseData(d);
+          }
           that.setData({
             html:html,
             date:selectDate
@@ -58,6 +64,9 @@ Page({
            });
          } else {
             var html = utils.get404Text(app.globalData.selectDate);
+           storage.save(app.globalData.selectDate, JSON.stringify({
+             is404: true
+           }));
             that.setData({
               html: html,
               date: app.globalData.selectDate
