@@ -33,10 +33,27 @@ const getNextDate = (date) => {
   return formatTime(d);
 }
 
+const getYMD = (date) => {
+  var year = date.substring(0, 4);
+  var month =  date.substring(4, 6) - 1;
+  var day = date.substring(6, 8);
+  return {
+    year: year,
+    month: month,
+    day: day
+  }
+}
+
+const getDateByYMD = (year, month, day) => {
+  return new Date(year,month,day);
+}
+
 module.exports = {
   formatTime: formatTime,
   getFormatArticle: getFormatArticle,
   getPrevDate: getPrevDate,
   getNextDate: getNextDate,
-  get404Text: get404Text
+  get404Text: get404Text,
+  getYMD: getYMD,
+  getDateByYMD: getDateByYMD
 }

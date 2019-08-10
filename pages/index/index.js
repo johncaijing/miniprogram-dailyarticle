@@ -29,7 +29,8 @@ Page({
            var html = utils.getFormatArticle(data.content, data.title, data.author);
 
            if(url === api.getNewestArticleUrl()) {
-              app.globalData.currDate = data.date.curr;
+              var ymd = utils.getYMD(data.date.curr);
+              app.globalData.currDate = utils.getDateByYMD(ymd.year,ymd.month,ymd.day);
            }
 
            that.setData({
@@ -63,7 +64,20 @@ Page({
   getNext: function(event) {
     console.log('next');
     app.globalData.random = false;
-    app.globalData.selectDate = utils.getNextDate(this.data.date);
+    var next = utils.getNextDate(this.data.date);
+    
+    var nextYMD = utils.getYMD(next);
+    var nextDate = utils.getDateByYMD(nextYMD.year,nextYMD.month,nextYMD.day);
+
+    if(nextDate.getTime() > app.globalData.currDate.getTime()) {
+      wx.showToast({
+        title: '没有更新的了',
+        duration: 2000
+      })
+      return;
+    }
+
+    app.globalData.selectDate = next;
     this.onLoad();
   }
 })
