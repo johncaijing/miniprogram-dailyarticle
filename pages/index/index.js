@@ -3,6 +3,12 @@
 const app = getApp();
 var utils = require('./../../utils/util.js');
 var api = require('./../../api/api.js');
+var storage = require('./../../utils/storage.js');
+
+var parseData = (data)=> {
+  var html = utils.getFormatArticle(data.content, data.title, data.author);
+  return html;
+};
 
 Page({
   data: {
@@ -14,6 +20,20 @@ Page({
 
     var url;
     if (app.globalData.selectDate) {
+      var selectDate = app.globalData.selectDate;
+
+      if(storage.hasKey(selectDate)) {
+        const data = storage.read(selectDate);
+        if(data) {
+          var html = parseData(JSON.parse(data));
+          that.setData({
+            html:html,
+            date:selectDate
+          });
+          return;
+        }
+      }
+
       url = api.getDateArticleUrl(app.globalData.selectDate);
     } else if(app.globalData.random){
       url = api.getRandomArticleUrl();  
@@ -26,13 +46,12 @@ Page({
       success:function(res){
          if(res.statusCode == '200') {
            var data = res.data.data;
-           var html = utils.getFormatArticle(data.content, data.title, data.author);
-
-           if(url === api.getNewestArticleUrl()) {
-              var ymd = utils.getYMD(data.date.curr);
-              app.globalData.currDate = utils.getDateByYMD(ymd.year,ymd.month,ymd.day);
+           storage.save(data.date.curr,JSON.stringify(data));
+           if (url === api.getNewestArticleUrl()) {
+             var ymd = utils.getYMD(data.date.curr);
+             app.globalData.currDate = utils.getDateByYMD(ymd.year, ymd.month, ymd.day);
            }
-
+           var html = parseData(data);
            that.setData({
              html: html,
              date: data.date.curr
