@@ -4,6 +4,8 @@ App({
    
   },
   globalData: {
-    
+     currDate: '',
+     selectDate: '',
+     random: false,
   }
 })
