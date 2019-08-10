@@ -5,7 +5,7 @@
 每天推荐一篇文章
 
 ## 效果图
-![](https://github.com/JohnTsaiAndroid/miniprogram-dailyarticle/blob/master/xcx.gif)
+![](./xcx.gif)
 
 ## 待实现功能
 
