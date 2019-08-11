@@ -17,7 +17,6 @@ Page({
   },
   onLoad: function () {
     var that = this;
-
     var url;
     if (app.globalData.selectDate) {
       var selectDate = app.globalData.selectDate;
@@ -108,8 +107,8 @@ Page({
   },
   onShareAppMessage:function(res){
     return {
-      title: '分享好文给朋友',
-      path: `path?date=${app.globalData.selectDate}`
+      title: '每日一文',
+      path: `/pages/index/index?date=${app.globalData.selectDate}`
     }
   }
 })
