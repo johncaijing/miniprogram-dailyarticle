@@ -52,6 +52,7 @@ Page({
       success:function(res){
          if(res.statusCode == '200') {
            var data = res.data.data;
+           app.globalData.selectDate = data.date.curr;
            storage.save(data.date.curr,JSON.stringify(data));
            if (url === api.getNewestArticleUrl()) {
              var ymd = utils.getYMD(data.date.curr);
@@ -104,5 +105,11 @@ Page({
 
     app.globalData.selectDate = next;
     this.onLoad();
+  },
+  onShareAppMessage:function(res){
+    return {
+      title: '分享好文给朋友',
+      path: `path?date=${app.globalData.selectDate}`
+    }
   }
 })
